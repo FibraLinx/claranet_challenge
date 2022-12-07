@@ -1,0 +1,13 @@
+#!/usr/bin/python3
+
+import os
+
+
+def rename_files(src, dst, path):
+    for r, d, f in os.walk(path):
+        for file in f:
+            if src in file:
+                os.rename(os.path.join(r, src), os.path.join(r, dst))
+
+
+rename_files("old_name", "new_name", "/home/<user>/<my_folder>")
