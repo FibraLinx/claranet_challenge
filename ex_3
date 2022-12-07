@@ -1,0 +1,18 @@
+#crontab
+
+0 1 * * 0 $HOME/.backup.sh
+
+
+
+
+#backup.sh
+
+#!/usr/bin/bash
+
+backup_file="backup.$(date +"%Y-%m-%d").tar.gz"
+
+echo "Starting backup"
+tar -czvf $backup_file $HOME
+
+echo "Moving the backup file to remote server"
+scp $backup_file user@192.168.1.100:$HOME && rm $backup_file
