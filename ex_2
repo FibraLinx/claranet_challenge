@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+
+import os
+
+
+path = "/home/<user>/<my_folder>/"
+
+my_dict = {}
+
+for r, d, f in os.walk(path):
+    for file in f:
+        abs_path = os.path.join(r, file)
+        if os.access(abs_path, os.X_OK):
+            with open(abs_path) as script:
+                data = script.read().splitlines()
+                shebang = data[0]
+                if shebang in my_dict:
+                    my_dict[shebang] += 1
+                else:
+                    my_dict.update({shebang: 1})
+
+for key, value in my_dict.items():
+    print(f"{value} {key}")
